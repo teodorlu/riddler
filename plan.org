@@ -7,8 +7,11 @@ _Where we're aiming and what we're doing._
     a notification on next! Or do that automatically when the register request
     comes in ... No, too complicated for first attemp. Let's try again.
   - Manual configuration with JSON (or something), and two commands.
-  - "Please get md5 for any new pages" ("init?")
-  - "Refresh "
+  - "Please get md5 for any new pages" ("init?") -- when adding new pages, we
+    may not want to send any updates?
+  - "Refresh" -- Re-check with the web sites all over, and track changes. If
+    there are changes, trigger sending E-mails to the user who have subscribed
+    to one or more of the pages that have changed.
 
 * Considered third party libraries
 - General

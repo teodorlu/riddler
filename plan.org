@@ -12,7 +12,6 @@ _Where we're aiming and what we're doing._
   - "Refresh" -- Re-check with the web sites all over, and track changes. If
     there are changes, trigger sending E-mails to the user who have subscribed
     to one or more of the pages that have changed.
-
 * Considered third party libraries
 - General
   - [[https://github.com/rust-unofficial/awesome-rust][Curated list of Rust resources]]
@@ -46,3 +45,30 @@ _Where we're aiming and what we're doing._
     benchmarks.
   - Consider just designing the structs in advance and landing on serialization
     later.
+* Data structures
+- Represent state of an URL.
+  - URL
+  - Content hash
+- Represent subscriptions
+  - Map email to content
+    - Or perhaps map URL to E-mail?
+
+#+BEGIN_SRC bash
+  teodorlu@XPS13 ~/workspace/bash/riddler % tree
+  .
+  ├── content
+  │   ├── paulgraham.com
+  │   └── teodorheggelund.com
+  └── subscribers
+      └── paulgraham.com
+
+  2 directories, 3 files
+  teodorlu@XPS13 ~/workspace/bash/riddler % cat content/paulgraham.com 
+  a883dafc480d466ee04e0d6da986bd78eb1fdd2178d04693723da3a8f95d42f4
+  teodorlu@XPS13 ~/workspace/bash/riddler % cat subscribers/paulgraham.com 
+  teodor@teodorheggelund.com
+#+END_SRC
+
+Doesn't handle selection yet. It would be nice if we could encode that in the
+file name. On the other hand, perhaps it makes sense to invert that index if we
+need selections.

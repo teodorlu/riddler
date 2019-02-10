@@ -1,0 +1,45 @@
+* Plan
+_Where we're aiming and what we're doing._
+
+- Watch sites for changes and send E-mail with a cron job.
+  - Need to keep track of which sites which users want to watch, and what the
+    latest status of each page is. If there is no latest status for a page, send
+    a notification on next! Or do that automatically when the register request
+    comes in ... No, too complicated for first attemp. Let's try again.
+  - Manual configuration with JSON (or something), and two commands.
+  - "Please get md5 for any new pages" ("init?")
+  - "Refresh "
+
+* Considered third party libraries
+- General
+  - [[https://github.com/rust-unofficial/awesome-rust][Curated list of Rust resources]]
+- HTTP / HTML
+  - [[https://github.com/seanmonstar/reqwest][reqwest]]: HTTP requests from Rust
+  - Blog post on [[https://kadekillary.work/post/webscraping-rust/][web scraping with Rust]].
+    - Not needed if we start out just hashing some index pages. If we want to do
+      web scraping, we have to decide on how we want to keep the scraping info
+      stored for different pages. Hard-coded in source? Part of JSON
+      configuration? Or even configurable with REST? Plenty of possible work
+      here, probably best to postpone until we can try using and MVP.
+- Configuration / local data.
+  - Required information
+    - Last change on websites to compare when we refresh. If we want to go
+      further, we need to store how we can access the data source as well,
+      perhaps with CSS selector systax.
+    - Mapping of who subscribes to which sites. E-mail for the people involved,
+      perhaps abstracted into a personal ID if we want to allow for E-mail
+      change (normalized)
+  - File format
+    - Should we try to put all of the configuration in a single file, or should
+      we use a folder-based system?
+  - Note: Rust allows for both product types (named tuples, structs) and sum
+    types (enums). JSON doesn't support enums natively, so they need to be
+    encoded in some sense.
+  - [[https://github.com/serde-rs/json][serde-json]] provides JSON serialization and deserialization. Looks good, lots
+    of documentation.
+  - [[https://github.com/maciejhirsz/json-rust][maciejhirsz/json-rust]] does not automatically bind to structs, and instead
+    exposes JSON as-is. No type generation, no magic macros.
+  - [[https://github.com/pikkr/pikkr][pikkr/pikkr]] is apparently really fast, refers to Microsoft Research and
+    benchmarks.
+  - Consider just designing the structs in advance and landing on serialization
+    later.

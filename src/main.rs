@@ -21,8 +21,7 @@ fn parse_url_statuses(folder: &str) {
         content_hash: "abc0101".to_string()
     };
 
-    let mut vec = Vec::new();
-    vec.push(s);
+    let mut vec = vec![s];
 
     let mut buffer = String::new();
 

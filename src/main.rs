@@ -15,6 +15,14 @@ struct Subscriber {
     email: String
 }
 
+/* I should be able to wrap this.
+ *
+ * std::io types generally return std::io::Result where type Result<T> =
+ * Result<T, Error> and std::io::Error is the "error type for most IO errors".
+ * This means that we can collapse most IO errors into one, and use monadic
+ * composition.
+ */
+
 fn parse_url_statuses(folder: &str) {
     let s = UrlStatus {
         domain: "test.com".to_string(),
@@ -45,6 +53,22 @@ fn parse_url_statuses(folder: &str) {
     }
 }
 
+fn parse2(folder: &str) {
+    if let Ok(entries) = fs::read_dir(folder) {
+        for entry in entries {
+            let r = entry
+                .and_then(|e| {
+                    Ok(e)
+                }).and_then(|e| {
+                    println!("Got this far: {:?}", e);
+                    Ok(e)
+                });
+            println!("Finally: {:?}", r);
+        }
+    }
+
+}
+
 // fn parse_subscribers(folder: &str) {
     
 // }
@@ -52,6 +76,7 @@ fn parse_url_statuses(folder: &str) {
 fn main() {
     // But could we iterate over that folder and produce some meaning out of it?
     let path : &'static str = "/home/teodorlu/workspace/bash/riddler/urlstatus";
-    parse_url_statuses(path);
+    // parse_url_statuses(path);
+    parse2(path);
     println!("Hello, world!");
 }
